@@ -16,7 +16,8 @@ date_default_timezone_set('America/Lima');
 
 // Rutas del sistema
 define('BASE_PATH', dirname(__DIR__));
-define('BASE_URL', getenv('APP_URL') ?: '/fastfood');
+$appUrl = getenv('APP_URL');
+define('BASE_URL', $appUrl !== false ? $appUrl : '/fastfood');
 
 // Incluir base de datos (esto carga las variables de entorno)
 require_once BASE_PATH . '/config/database.php';
