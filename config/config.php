@@ -197,28 +197,32 @@ function getFlashMessage() {
 }
 
 /**
- * Obtener el siguiente número de ticket (por tienda)
- * CORREGIDO: Usa prepared statements
+ * Obtener el siguiente número de boleta (por tienda)
+ * Formato: B[SERIE]-[CORRELATIVO]
+ * Ejemplo: B001-00000001 (tienda 1), B002-00000001 (tienda 2)
  */
 function getNextTicketNumber() {
     $db = Database::getInstance()->getConnection();
+    $tiendaId = getTiendaId() ?: 1;
 
-    if (hasTienda()) {
-        $stmt = $db->prepare("SELECT nro_ticket FROM ventas WHERE tienda_id = :tienda_id ORDER BY id DESC LIMIT 1");
-        $stmt->execute(['tienda_id' => getTiendaId()]);
-    } else {
-        $stmt = $db->query("SELECT nro_ticket FROM ventas ORDER BY id DESC LIMIT 1");
-    }
+    // Serie basada en ID de tienda (3 dígitos)
+    $serie = str_pad($tiendaId, 3, '0', STR_PAD_LEFT);
 
+    // Buscar último correlativo de esta tienda
+    $stmt = $db->prepare("SELECT nro_ticket FROM ventas WHERE tienda_id = :tienda_id ORDER BY id DESC LIMIT 1");
+    $stmt->execute(['tienda_id' => $tiendaId]);
     $last = $stmt->fetch();
 
     if ($last) {
-        $num = intval(substr($last['nro_ticket'], 1)) + 1;
+        // Extraer el correlativo después del guion (B001-XXXXXXXX)
+        $parts = explode('-', $last['nro_ticket']);
+        $correlativo = isset($parts[1]) ? intval($parts[1]) + 1 : 1;
     } else {
-        $num = 1;
+        $correlativo = 1;
     }
 
-    return 'T' . str_pad($num, 8, '0', STR_PAD_LEFT);
+    // Formato final: B001-00000001
+    return 'B' . $serie . '-' . str_pad($correlativo, 8, '0', STR_PAD_LEFT);
 }
 
 /**
