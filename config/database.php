@@ -53,6 +53,12 @@ class Database {
                 PDO::ATTR_EMULATE_PREPARES => false,
             ];
 
+            // TiDB Cloud requiere SSL
+            if (strpos(DB_HOST, 'tidbcloud.com') !== false) {
+                $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+                $options[PDO::MYSQL_ATTR_SSL_CA] = '';
+            }
+
             $this->conn = new PDO($dsn, DB_USER, DB_PASS, $options);
         } catch(PDOException $e) {
             // En producción no mostrar detalles del error
