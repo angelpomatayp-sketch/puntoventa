@@ -818,4 +818,5 @@ function formatMoney(amount) {
 }
 
 // Variable global BASE_URL para AJAX
-const BASE_URL = window.location.origin + '/fastfood';
+// NOTA: BASE_URL ahora se define en PHP (venta.php) para soportar diferentes entornos
+// const BASE_URL = window.location.origin + '/fastfood';

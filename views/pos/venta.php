@@ -383,6 +383,8 @@ $clienteAnonimoId = $clienteAnonimo ? $clienteAnonimo['id'] : 1;
 <?php
 $custom_js = "
 <script>
+    // BASE_URL para AJAX (pasado desde PHP)
+    const BASE_URL = '" . BASE_URL . "';
     // MULTI-TENANT: ID del cliente ANÓNIMO de esta tienda
     const CLIENTE_ANONIMO_ID = " . $clienteAnonimoId . ";
 </script>
