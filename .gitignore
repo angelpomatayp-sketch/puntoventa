@@ -1,0 +1,31 @@
+# Archivos de entorno (NUNCA subir a repositorio)
+.env
+.env.local
+.env.production
+
+# Logs
+logs/*.log
+*.log
+
+# Uploads de usuarios
+uploads/logos/*
+!uploads/logos/.gitkeep
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Dependencias (si usas Composer en el futuro)
+/vendor/
+
+# Archivos temporales
+*.tmp
+*.temp
+*.cache

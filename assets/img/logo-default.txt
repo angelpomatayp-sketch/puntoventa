@@ -1,0 +1,14 @@
+Para crear el logo por defecto:
+
+1. Crear una imagen PNG de 200x100 píxeles
+2. Agregar texto "LOGO" en el centro
+3. Guardar como: logo-default.png en esta carpeta
+
+Mientras tanto, el sistema funcionará sin logo por defecto.
+
+Puedes usar cualquier herramienta de diseño o generadores online:
+- Canva (https://www.canva.com/)
+- Photopea (https://www.photopea.com/)
+- GIMP (software libre)
+
+O simplemente buscar "placeholder logo 200x100" en Google Images.
